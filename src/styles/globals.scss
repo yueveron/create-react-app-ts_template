@@ -1,0 +1,15 @@
+@import url("https://use.typekit.net/nsp8kav.css"); // 使用 @import url() 引入外部样式文件
+
+$primary: #44a3fc;
+$font-color: #333333;
+$btn-width: 463rpx;
+$btn-height: 149rpx;
+
+.mainWrapper {
+  position: relative;
+  color: $font-color;
+  width: 800px;
+  padding: 20px;
+  margin: 20px auto;
+  background-color: beige;
+}

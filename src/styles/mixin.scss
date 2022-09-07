@@ -1,0 +1,13 @@
+$color-red : #ff0000;
+
+@mixin tablet {
+  @media only screen and (min-width: 768px) {
+    @content; //  @content; 等同于 Slot 功能
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 992x) {
+    @content;
+  }
+}

@@ -1,0 +1,19 @@
+@use "../../styles/mixin.scss" as mixin; // 使用-全局mixin
+$font-color: #333333;
+.listWrapper{
+  margin-top: 20px;
+  background-color: aqua;
+  .title{
+    font-size: 32px;
+    font-family: minerva-modern; // 全局引入的 class 可以直接在 module 文件中使用
+    &.red{
+      color: $font-color;
+      @include mixin.tablet { // use mixin
+        color: mixin.$color-red;
+      }
+    }
+    .text{
+      color: gray;
+    }
+  }
+}
