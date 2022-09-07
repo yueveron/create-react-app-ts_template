@@ -1,2 +1,6 @@
-# create-react-app-ts_template
-React Template of  Create-React-App Use Typescript
+# React Template of  Create-React-App Use Typescript
+
+### List Function
+- Typescript
+- Eslint
+- Sass
