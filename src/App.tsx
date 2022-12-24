@@ -1,10 +1,9 @@
 import './App.css';
-import DemoTs from './components/DemoTs';
-
+import DemoZustand from './pages/demo-zustand/DemoZustand';
 function App() {
   return (
     <div className="App">
-      <DemoTs name='Demo of Type srcipt' enthusiasmLevel={8} />
+      <DemoZustand />
     </div>
   );
 }
