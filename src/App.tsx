@@ -1,12 +1,14 @@
 
 import './App.css';
 // import DemoZustand from './pages/demo-zustand/DemoZustand';
-import DemoFormik from './pages/demo-formik/DemoFormik';
+// import DemoFormik from './pages/demo-formik/DemoFormik';
+import DemoCustomHooks from './pages/demo-customhooks/DemoCustomHooks';
 function App() {
   return (
     <div className="App">
-      {/* <DemoZustand /> */}
-      <DemoFormik/>
+      {/* <DemoZustand/> */}
+      {/* <DemoFormik/> */}
+      <DemoCustomHooks/>
     </div>
   );
 }
