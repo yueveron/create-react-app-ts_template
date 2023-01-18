@@ -1,10 +1,14 @@
-import './App.css';
-import DemoTs from './components/DemoTs';
 
+import './App.css';
+// import DemoZustand from './pages/demo-zustand/DemoZustand';
+// import DemoFormik from './pages/demo-formik/DemoFormik';
+import DemoCustomHooks from './pages/demo-customhooks/DemoCustomHooks';
 function App() {
   return (
     <div className="App">
-      <DemoTs name='Demo of Type srcipt' enthusiasmLevel={8} />
+      {/* <DemoZustand/> */}
+      {/* <DemoFormik/> */}
+      <DemoCustomHooks/>
     </div>
   );
 }
