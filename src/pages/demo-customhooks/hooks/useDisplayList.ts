@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useDisplayList = (url:string) => {
+const useDisplayList = (url: string) => {
   const [list, setList] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchData = async function() {
+    const fetchData = async function () {
       try {
         setLoading(true);
         const response = await axios.get(url);
@@ -24,12 +24,12 @@ const useDisplayList = (url:string) => {
     };
     fetchData();
   }, [url]);
-  
+
   /** return  */
   return {
     list,
     loading,
-    error
+    error,
   };
 };
 
