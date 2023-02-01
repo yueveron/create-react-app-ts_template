@@ -2,15 +2,18 @@ import '../../styles/globals.scss';
 import { useEffect } from 'react';
 //
 import useDisplayList from './hooks/useDisplayList';
-const DemoCustomHooks = () => {
+import useCopyToClipboard from './hooks/useCopyToClipboard';
+
+/** useDisplayList - get url, return response list data */
+export const DemoUseDispalyList = () => {
   const apiUrl = 'http://jsonplaceholder.typicode.com/posts';
   const { error, loading, list } = useDisplayList(apiUrl);
   useEffect(() => {
-    console.debug('DemoCustomHooks');
+    // console.debug('DemoUseDispalyList');
   }, []);
   return (
     <div className="mainWrapper">
-      <h3>Demo Custom Hooks</h3>
+      <h4>Demo Custom Hooks : useDisplayList</h4>
       <div>
         {loading && '...loading'}
         {list &&
@@ -24,4 +27,17 @@ const DemoCustomHooks = () => {
     </div>
   );
 };
-export default DemoCustomHooks;
+
+/** useCopyToClipboard - return state and function */
+export const DemoUseCopyToClipboard = () => {
+  const { isCopied, handleCopy } = useCopyToClipboard();
+
+  return (
+    <>
+      <h4>Demo Custom Hooks : useCopyToClipboard</h4>
+      <button onClick={() => handleCopy('copy content msg')}>
+        {isCopied ? 'has-copy' : 'none-copy'}
+      </button>
+    </>
+  );
+};
