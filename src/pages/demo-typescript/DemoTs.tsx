@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import '../../styles/globals.scss';
-import PageUseReducer from './pages/SimpleUseReducer';
+import SimpleUseReducer from './pages/SimpleUseReducer';
+import FetcherUseReducer from './pages/FetcherUseReducer';
+//
 const name: string = 'Tom';
 const hobbies: string[] = ['Tom', 'Jack'];
 // Type of Tuple, Tuple can contain two values of different data types
@@ -102,7 +104,8 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
       <button onClick={handleAdd}>add todo</button>
       <div ref={divRef}>Test useRef</div>
       <h4>Demo of useReducer</h4>
-      <PageUseReducer />
+      <SimpleUseReducer />
+      <FetcherUseReducer />
     </>
   );
 };
