@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import '../../styles/globals.scss';
-
+import PageUseReducer from './pages/SimpleUseReducer';
 const name: string = 'Tom';
 const hobbies: string[] = ['Tom', 'Jack'];
 // Type of Tuple, Tuple can contain two values of different data types
@@ -101,6 +101,8 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
       <h3>{hobbies}</h3>
       <button onClick={handleAdd}>add todo</button>
       <div ref={divRef}>Test useRef</div>
+      <h4>Demo of useReducer</h4>
+      <PageUseReducer />
     </>
   );
 };
