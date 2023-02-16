@@ -4,42 +4,43 @@
     - useReducer : 适合逻辑比较复杂的state(数组或对象等其它复杂的类型等)
 */
 import { useReducer } from 'react';
-const initialCount = 0;
-const reducer = (state: any, action: any) => {
+type TAction =
+  | { type: 'increment'; payload: number }
+  | { type: 'decrement'; payload: number }
+  | { type: 'reset'; payload: number };
+type TState = {
+  count: number;
+};
+const initialState: TState = { count: 0 };
+const reducer = (state: TState, action: TAction) => {
   switch (action.type) {
     case 'increment':
-      return action.payload;
-
+      return { count: state.count + action.payload };
     case 'decrement':
-      return action.payload;
-
+      return { count: state.count - action.payload };
     case 'reset':
-      return action.payload;
-
+      return { count: action.payload };
     default:
       return state;
   }
 };
 const SimpleUseReducer = () => {
-  const [state, dispatch] = useReducer(reducer, initialCount);
-
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <>
       Count: {state}
       <div>
         <button
-          onClick={() => dispatch({ type: 'reset', payload: initialCount })}
+          onClick={() =>
+            dispatch({ type: 'reset', payload: initialState.count })
+          }
         >
           Reset
         </button>
-        <button
-          onClick={() => dispatch({ type: 'decrement', payload: state - 1 })}
-        >
+        <button onClick={() => dispatch({ type: 'decrement', payload: 1 })}>
           Decrement
         </button>
-        <button
-          onClick={() => dispatch({ type: 'increment', payload: state + 1 })}
-        >
+        <button onClick={() => dispatch({ type: 'increment', payload: 1 })}>
           Increment
         </button>
       </div>

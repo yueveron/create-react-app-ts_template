@@ -5,13 +5,20 @@
 */
 import { useReducer, useEffect } from 'react';
 import axios from 'axios';
-
-const initialState = {
+type TAction =
+  | { type: 'SUCCESS'; payload: any }
+  | { type: 'ERROR'; payload: any };
+type TState = {
+  loading: boolean;
+  data: any;
+  error: boolean;
+};
+const initialState: TState = {
   loading: true,
   data: null,
   error: false,
 };
-const reducer = (state: any, action: any) => {
+const reducer = (state: TState, action: TAction) => {
   switch (action.type) {
     case 'SUCCESS':
       return {
