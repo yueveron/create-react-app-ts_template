@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import '../../styles/globals.scss';
-import SimpleUseReducer from './pages/SimpleUseReducer';
-import FetcherUseReducer from './pages/FetcherUseReducer';
+// import SimpleUseReducer from './pages/SimpleUseReducer';
+// import FetcherUseReducer from './pages/FetcherUseReducer';
+import Form from './components/Form/Form';
 //
 const name: string = 'Tom';
 const hobbies: string[] = ['Tom', 'Jack'];
@@ -104,8 +105,9 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
       <button onClick={handleAdd}>add todo</button>
       <div ref={divRef}>Test useRef</div>
       <h4>Demo of useReducer</h4>
-      <SimpleUseReducer />
-      <FetcherUseReducer />
+      {/* <SimpleUseReducer />
+      <FetcherUseReducer /> */}
+      <Form />
     </>
   );
 };
