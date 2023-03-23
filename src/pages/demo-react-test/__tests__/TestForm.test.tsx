@@ -23,8 +23,9 @@ test('test Formik form', async () => {
   await user.click(screen.getByRole('button', { name: /submit/i }));
 
   //
+  const titleEle = screen.getByTestId('counter');
+  expect(titleEle).toHaveTextContent('Init');
   await waitFor(() => {
-    const titleEle = screen.getByTestId('counter');
     expect(titleEle).toHaveTextContent('John');
   });
 });

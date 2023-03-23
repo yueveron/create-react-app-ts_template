@@ -1,10 +1,12 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const MyForm = () => {
-  const [counter, setCounter] = React.useState('');
+  const [counter, setCounter] = React.useState('Init');
 
-  const handleSubmit = (values: any) => {
+  const handleSubmit = async (values: any) => {
+    await sleep(500);
     const { firstName } = values;
     setCounter(firstName);
   };
