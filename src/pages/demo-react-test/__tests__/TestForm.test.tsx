@@ -19,10 +19,8 @@ test('test Formik form', async () => {
     screen.getByRole('textbox', { name: /email/i }),
     'john.dee@someemail.com'
   );
-
   await user.click(screen.getByRole('button', { name: /submit/i }));
 
-  //
   const titleEle = screen.getByTestId('counter');
   expect(titleEle).toHaveTextContent('Init');
   await waitFor(() => {
