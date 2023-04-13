@@ -7,7 +7,8 @@ import './App.css';
 // } from './pages/demo-customhooks/DemoCustomHooks';
 // import DemoTs from './pages/demo-typescript/DemoTs';
 // import DemoReactQuery from './pages/demo-react-query/DemoReactQuery';
-import DemoReactTest from './pages/demo-react-test/DemoReactTest';
+// import DemoReactTest from './pages/demo-react-test/DemoReactTest';
+import DemoUtils from './pages/demo-utils/DemoUtils';
 function App() {
   return (
     <div className="App">
@@ -17,7 +18,8 @@ function App() {
       {/* <DemoUseDispalyList /> */}
       {/* <DemoTs hobbies="football" /> */}
       {/* <DemoReactQuery /> */}
-      <DemoReactTest title="React Test" />
+      {/* <DemoReactTest title="React Test" /> */}
+      <DemoUtils />
     </div>
   );
 }
