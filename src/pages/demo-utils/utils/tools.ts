@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { get, set } from 'lodash';
 /**
  * Return the array of all value of nest-obj
  * @param {T} obj origin pure nest-obj
@@ -25,7 +27,7 @@ export const getEntiresObjValues = <T>(obj: T): string[] => {
 export const getLoopObject = <T extends {}>(obj: T): void => {
   Object.keys(obj).forEach((key) => {
     if (obj[key as keyof {}] === '0') {
-      console.debug('equal to 0:', key, obj[key as keyof {}]);
+      // console.debug('equal to 0:', key, obj[key as keyof {}]);
     }
   });
 };
@@ -52,5 +54,44 @@ export const geyIsNotEmptyArray = <T>(list: T[]): boolean => {
 
 export const exampleObjectReplaceSwitch = (): void => {
   const obj1: Record<string, string> = { a: '1', b: '2' };
-  console.debug('a:', obj1['a'] || 'defaultSource'); // output-> a:1
+  // console.debug('a:', obj1['a'] || 'defaultSource'); // output-> a:1
+};
+
+/**
+ * 扁平化 object key 为一维字符串
+ * 注意：如果 object.key 为 array，会被忽略
+ */
+export const flattenObject = (ob: any): any => {
+  const toReturn: any = {};
+  for (const i in ob) {
+    if (!Object.hasOwn(ob, i)) continue;
+    if (Array.isArray(ob[i])) continue;
+    if (typeof ob[i] === 'object' && ob[i] !== null) {
+      const flatObject = flattenObject(ob[i]);
+      for (const x in flatObject) {
+        if (!Object.hasOwn(flatObject, x)) continue;
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
+/**
+ * Compare Two Object, and Set Modified item To Result-Object
+ */
+export const getModifiedValues = (initialValue: any, submitValue: any): any => {
+  const flattened = flattenObject(initialValue);
+  console.debug('flattened:', flattened);
+  const result: any = {};
+  Object.entries(flattened)?.map((entry) => {
+    const [key, oldVal] = entry;
+    const newVal = get(submitValue, key);
+    if (newVal !== oldVal) {
+      set(result, key, newVal);
+    }
+  });
+  return result;
 };
