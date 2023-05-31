@@ -1,9 +1,9 @@
 import '../../styles/globals.scss';
-import { useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import useDisplayList from './hooks/useDisplayList';
 import useCopyToClipboard from './hooks/useCopyToClipboard';
 import useKeyPress from './hooks/useKeyPress';
-
+import { initialState, reducer } from './reducer';
 /** useDisplayList - get url, return response list data */
 export const DemoUseDispalyList = () => {
   const apiUrl = 'http://jsonplaceholder.typicode.com/posts';
@@ -44,6 +44,8 @@ export const DemoUseCopyToClipboard = () => {
 
 /** useKeyBoard - get which kep has press */
 export const DemoUseKeyBoard = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch] = useReducer(reducer, initialState);
   const arrowUpPressed = useKeyPress('ArrowUp');
   const arrowDownPressed = useKeyPress('ArrowDown');
 
@@ -63,6 +65,34 @@ export const DemoUseKeyBoard = () => {
       <h4>Demo Custom Hooks : Detect Keyboard Press</h4>
       <p>{arrowUpPressed ? 'Press Up' : 'Released Up'}</p>
       <p>{arrowDownPressed ? 'Press Down' : 'Released Down'}</p>
+      <p>reducer.state:{state.selectedIndex}</p>
+    </>
+  );
+};
+
+/** useReducer */
+export const DemoUseReducerSimple = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <>
+      <h4>Demo useReducer Hooks</h4>
+      <p>selectedIndex : {state.selectedIndex}</p>
+      <button
+        onClick={() => {
+          dispatch({ type: 'select' });
+        }}
+      >
+        change state of select
+      </button>
+
+      <button
+        onClick={() => {
+          dispatch({ type: 'arrowUp' });
+        }}
+      >
+        change state of arrowUp
+      </button>
     </>
   );
 };

@@ -6,6 +6,7 @@ import {
   DemoUseDispalyList,
   DemoUseCopyToClipboard,
   DemoUseKeyBoard,
+  DemoUseReducerSimple,
 } from './pages/demo-customhooks/DemoCustomHooks';
 // import DemoReactQuery from './pages/demo-react-query/DemoReactQuery';
 // import DemoReactTest from './pages/demo-react-test/DemoReactTest';
@@ -23,6 +24,7 @@ function App() {
       {/* <DemoUtils /> */}
       {/* <DemoTs hobbies="football" /> */}
       <DemoUseKeyBoard />
+      <DemoUseReducerSimple />
     </div>
   );
 }
