@@ -24,6 +24,21 @@ export const getEntiresObjValues = <T>(obj: T): string[] => {
   return result;
 };
 
+export const iterateNestObject = (obj: any): void => {
+  const recursivelyFindKey = (o: any): void => {
+    Object.keys(o).forEach((key): void => {
+      const value = o[key];
+      const typeOfValue = value === null ? 'null' : typeof value;
+      if (typeof o[key] === 'object' && o[key] !== null) {
+        recursivelyFindKey(o[key]);
+      } else {
+        console.debug(`${key}:${value}, typeof:${typeOfValue}`);
+      }
+    });
+  };
+  recursivelyFindKey(obj);
+};
+
 export const getLoopObject = <T extends {}>(obj: T): void => {
   Object.keys(obj).forEach((key) => {
     if (obj[key as keyof {}] === '0') {
@@ -84,7 +99,7 @@ export const flattenObject = (ob: any): any => {
  */
 export const getModifiedValues = (initialValue: any, submitValue: any): any => {
   const flattened = flattenObject(initialValue);
-  console.debug('flattened:', flattened);
+  // console.debug('flattened:', flattened);
   const result: any = {};
   Object.entries(flattened)?.map((entry) => {
     const [key, oldVal] = entry;

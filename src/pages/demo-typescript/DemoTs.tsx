@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from 'react';
 import '../../styles/globals.scss';
 // import SimpleUseReducer from './pages/SimpleUseReducer';
@@ -23,7 +24,7 @@ let listPersons: TPerson[] = [{ name: 'Tom', age: 5 }];
 type X = { a: string; b: number };
 type Y = X & { c: string };
 let y: Y = { a: 't', b: 5, c: 'ss' };
-console.debug('y:', y);
+// console.debug('y:', y);
 // interface 定义对象类型
 interface IPerson {
   name: string;
@@ -37,13 +38,13 @@ interface IGuy extends IPerson {
   profession: string;
 }
 let guyOne: IGuy = { name: 'Sky', profession: 'player' };
-console.debug('guyOne:', guyOne);
+// console.debug('guyOne:', guyOne);
 // interface 还可以 extend type
 interface ISuperMan extends X {
   profession: string;
 }
 let superManOne: ISuperMan = { profession: 'cartoon', a: 't', b: 5 };
-console.debug('ISuperMan:', superManOne);
+// console.debug('ISuperMan:', superManOne);
 // 多种类型
 let age: number | string;
 age = 5;
@@ -54,19 +55,7 @@ personName = 'Tom';
 // object 类型
 let temp: object = {};
 temp = { b: 's' };
-console.debug('temp:', temp);
-//
-console.debug(
-  name,
-  hobbies,
-  role,
-  person,
-  listPersons,
-  age,
-  personName,
-  personOne
-);
-
+// console.debug('temp:', temp);
 /**
  * TS - React Component : 没必要使用 `React.FC` 定义类型，会造成 eslint react/prop-types
  */
@@ -78,14 +67,52 @@ interface ITodo {
   todo: string;
   isDone: boolean;
 }
+
+interface IFund {
+  dto?: IDto;
+}
+
+interface IDto {
+  code?: string | null;
+  name?: string | null;
+  age?: string | null;
+}
+
+const getFormatValue = <T,>(value: T): string | T => {
+  if (value === null) return '-';
+  if (typeof value === 'string' && value === '') return '-';
+  return value;
+};
+
 const DemoTs = ({ hobbies }: demoTsProps) => {
   // TS - useState : use useState<type>('')
   const [todos, setTodos] = useState<ITodo[]>([]);
   // TS - useRef : use useRef<type>(null)
   const divRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    console.debug('todos:', todos);
+    // console.debug('todos:', todos);
+    const fundInfo: IFund = {
+      dto: {
+        code: null,
+        name: 'jack',
+        age: '2',
+      },
+    };
+    const listKey = ['code', 'name', 'age'];
+    listKey.forEach((keyName): void => {
+      if (fundInfo.dto?.[keyName as keyof IDto])
+        fundInfo.dto[keyName as keyof IDto] =
+          'm-' + fundInfo.dto[keyName as keyof IDto];
+    });
+    console.debug('dto :', fundInfo.dto);
+    const mockObj = {
+      name: 5,
+      title: null,
+    };
+    console.debug(getFormatValue(mockObj.name));
+    console.debug(getFormatValue(mockObj.title));
   }, [todos]);
+
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     divRef.current!.style.backgroundColor = 'grey';
