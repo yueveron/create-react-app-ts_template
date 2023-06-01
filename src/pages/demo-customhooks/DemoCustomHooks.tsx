@@ -3,7 +3,6 @@ import { useEffect, useReducer } from 'react';
 import useDisplayList from './hooks/useDisplayList';
 import useCopyToClipboard from './hooks/useCopyToClipboard';
 import useKeyPress from './hooks/useKeyPress';
-import { initialState, reducer } from './reducer';
 /** useDisplayList - get url, return response list data */
 export const DemoUseDispalyList = () => {
   const apiUrl = 'http://jsonplaceholder.typicode.com/posts';
@@ -71,9 +70,26 @@ export const DemoUseKeyBoard = () => {
 };
 
 /** useReducer */
+type TState = {
+  selectedIndex: number;
+};
+type TAction =
+  | { type: 'arrowUp'; payload?: TState }
+  | { type: 'select'; payload?: TState };
+
+export const initialState: TState = { selectedIndex: 0 };
+export const reducer = (state: TState, action: TAction) => {
+  switch (action.type) {
+    case 'arrowUp':
+      return { selectedIndex: 1 };
+    case 'select':
+      return { selectedIndex: 3 };
+    default:
+      throw new Error();
+  }
+};
 export const DemoUseReducerSimple = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   return (
     <>
       <h4>Demo useReducer Hooks</h4>
