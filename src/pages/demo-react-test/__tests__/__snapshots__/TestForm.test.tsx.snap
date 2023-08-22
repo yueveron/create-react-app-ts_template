@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Formik Test Cases test Formik form: test-formik 1`] = `
+<div>
+  <div>
+    <h1>
+      Sign Up
+    </h1>
+    <span
+      data-testid="counter"
+    >
+      John
+    </span>
+    <form
+      action="#"
+      data-testid="test-form"
+    >
+      <label
+        for="firstName"
+      >
+        First Name
+      </label>
+      <input
+        data-testid="firstName"
+        id="firstName"
+        name="firstName"
+        placeholder="Jane"
+        value="John"
+      />
+      <label
+        for="lastName"
+      >
+        Last Name
+      </label>
+      <input
+        id="lastName"
+        name="lastName"
+        placeholder="Doe"
+        value="Dee"
+      />
+      <label
+        for="email"
+      >
+        Email
+      </label>
+      <input
+        id="email"
+        name="email"
+        placeholder="jane@acme.com"
+        type="email"
+        value="john.dee@someemail.com"
+      />
+      <button
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+`;

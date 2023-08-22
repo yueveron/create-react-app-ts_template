@@ -11,7 +11,7 @@ import {
 // import DemoReactQuery from './pages/demo-react-query/DemoReactQuery';
 // import DemoReactTest from './pages/demo-react-test/DemoReactTest';
 // import DemoUtils from './pages/demo-utils/DemoUtils';
-// import DemoTs from './pages/demo-typescript/DemoTs';
+import DemoTs from './pages/demo-typescript/DemoTs';
 function App() {
   return (
     <div className="App">
@@ -22,9 +22,9 @@ function App() {
       {/* <DemoReactQuery /> */}
       {/* <DemoReactTest title="React Test" /> */}
       {/* <DemoUtils /> */}
-      {/* <DemoTs hobbies="football" /> */}
-      <DemoUseKeyBoard />
-      <DemoUseReducerSimple />
+      <DemoTs hobbies="football" />
+      {/* <DemoUseKeyBoard /> */}
+      {/* <DemoUseReducerSimple /> */}
     </div>
   );
 }

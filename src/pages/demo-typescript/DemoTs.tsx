@@ -84,6 +84,44 @@ const getFormatValue = <T,>(value: T): string | T => {
   return value;
 };
 
+/** Example of interface 泛型 */
+interface LabelValue {
+  label: string;
+  value: string;
+}
+
+interface IOptionTeams {
+  chelse: LabelValue;
+  brighton: LabelValue;
+}
+
+// 接口接收泛型
+interface ISoccer<T> {
+  name: string;
+  optionsTeamObj: T;
+}
+
+const getTeamLabel = <T,>(props: ISoccer<T>): string => {
+  const { name, optionsTeamObj } = props;
+  const keyName = 'chelse';
+  const optionObj = optionsTeamObj[keyName as keyof T] as unknown as LabelValue;
+  const teamLabel = optionObj.label;
+  return `${name} : ${teamLabel}`;
+};
+
+/** 泛型函数 */
+interface ISumField {
+  name: string;
+  value: number;
+}
+const getArraySumByField = <T,>(list: T[], field: string): number => {
+  let sum = 0;
+  list.forEach((element): void => {
+    sum += Number(element[field as keyof T]) ?? 0;
+  });
+  return sum;
+};
+
 const DemoTs = ({ hobbies }: demoTsProps) => {
   // TS - useState : use useState<type>('')
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -104,13 +142,35 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
         fundInfo.dto[keyName as keyof IDto] =
           'm-' + fundInfo.dto[keyName as keyof IDto];
     });
-    console.debug('dto :', fundInfo.dto);
+    // console.debug('dto :', fundInfo.dto);
     const mockObj = {
       name: 5,
       title: null,
     };
-    console.debug(getFormatValue(mockObj.name));
-    console.debug(getFormatValue(mockObj.title));
+    // console.debug(getFormatValue(mockObj.name));
+    // console.debug(getFormatValue(mockObj.title));
+
+    /** use 泛型函数 */
+    const sumTotal = getArraySumByField<ISumField>(
+      [
+        { name: 'one', value: 1 },
+        { name: 'two', value: 2 },
+      ],
+      'value'
+    );
+    console.debug('sumTotal:', sumTotal); // output->3
+
+    /** use interface 泛型  */
+    const optionsTeam: IOptionTeams = {
+      chelse: { label: 'chelse team', value: 'CS' },
+      brighton: { label: 'brighton team', value: 'BT' },
+    };
+    console.debug(
+      getTeamLabel<IOptionTeams>({
+        name: 'This team is',
+        optionsTeamObj: optionsTeam,
+      })
+    );
   }, [todos]);
 
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
@@ -128,13 +188,13 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
   };
   return (
     <>
-      <h3>{hobbies}</h3>
-      <button onClick={handleAdd}>add todo</button>
-      <div ref={divRef}>Test useRef</div>
-      <h4>Demo of useReducer</h4>
+      <h3>Props: {hobbies}</h3>
+      {/* <button onClick={handleAdd}>add todo</button> */}
+      {/* <div ref={divRef}>Test useRef</div> */}
+      {/* <h4>Demo of useReducer</h4> */}
       {/* <SimpleUseReducer />
       <FetcherUseReducer /> */}
-      <Form />
+      {/* <Form /> */}
     </>
   );
 };
