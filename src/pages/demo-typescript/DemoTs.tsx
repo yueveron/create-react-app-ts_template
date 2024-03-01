@@ -122,6 +122,20 @@ const getArraySumByField = <T,>(list: T[], field: string): number => {
   return sum;
 };
 
+interface ITest1 {
+  title: string;
+  name: string;
+}
+
+interface ITest2 {
+  title: string;
+  name: string;
+}
+
+let test1: ITest2 = { title: '2', name: '322' };
+const test2: ITest1 = { title: '2', name: '32' };
+test1 = test2;
+console.debug('test1:', test1);
 const DemoTs = ({ hobbies }: demoTsProps) => {
   // TS - useState : use useState<type>('')
   const [todos, setTodos] = useState<ITodo[]>([]);

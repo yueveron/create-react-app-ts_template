@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import '../../styles/globals.scss';
-import TestFormik from './pages/TestFormik';
+// import TestFormik from './pages/TestFormik';
 interface IProps {
   title: string;
 }
@@ -10,7 +10,7 @@ const DemoReactTest = (props: IProps): ReactElement => {
     <>
       <h3>Demo of React Test</h3>
       <h4>{title}</h4>
-      <TestFormik />
+      {/* <TestFormik /> */}
     </>
   );
 };
