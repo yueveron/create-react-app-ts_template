@@ -14,6 +14,7 @@ import {
 import DemoTs from './pages/demo-typescript/DemoTs';
 import DemoChildren from './pages/demo-children/DemoUse';
 import DemoComposition from './pages/demo-composition/DemoComposition';
+import DemoReactQuery from './pages/demo-react-query/reusable-react-query';
 function App() {
   return (
     <div className="App">
@@ -29,7 +30,8 @@ function App() {
       {/* <DemoUseReducerSimple /> */}
       {/* <DemoChildren /> */}
       {/* <DemoComposition /> */}
-      <DemoFormik />
+      {/* <DemoFormik /> */}
+      <DemoReactQuery />
     </div>
   );
 }
