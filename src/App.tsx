@@ -15,6 +15,9 @@ import DemoTs from './pages/demo-typescript/DemoTs';
 import DemoChildren from './pages/demo-children/DemoUse';
 import DemoComposition from './pages/demo-composition/DemoComposition';
 import DemoReactQuery from './pages/demo-react-query/reusable-react-query';
+// import DemoListItems from './pages/demo-react-basic/list-items';
+import DemoExcel from './pages/demo-excel/';
+
 function App() {
   return (
     <div className="App">
@@ -31,7 +34,9 @@ function App() {
       {/* <DemoChildren /> */}
       {/* <DemoComposition /> */}
       {/* <DemoFormik /> */}
-      <DemoReactQuery />
+      {/* <DemoReactQuery /> */}
+      {/* <DemoListItems /> */}
+      <DemoExcel />
     </div>
   );
 }
