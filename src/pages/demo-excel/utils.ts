@@ -1,46 +1,36 @@
-export const mainList = [
-  {
-    id: 1,
-    name: '江郁滨',
-    time: '2024-04-25 23:05:22',
-  },
-  {
-    id: 2,
-    name: '张进平',
-    time: '2024-04-25 22:01:13',
-  },
-  {
-    id: 3,
-    name: '江郁滨',
-    time: '2024-04-25 23:38:13',
-  },
-  {
-    id: 4,
-    name: '李明',
-    time: '2024-04-26 22:00:00',
-  },
-];
+const isBetweenTime = (
+  checkTime: string,
+  enterTime: string,
+  leaveTime: string
+): boolean => {
+  const dateCheckTime = new Date(checkTime).getTime();
+  const dateEnterTime = new Date(enterTime).getTime();
+  const dateLeaveTime = new Date(leaveTime).getTime();
+  return dateCheckTime >= dateEnterTime && dateCheckTime <= dateLeaveTime;
+};
 
-export const targetList = [
-  {
-    id: '1',
-    enterTime: '2024-04-25 23:05:10',
-    leaveTime: '2024-04-25 23:10:00',
-    jinKeList: '张进平、江郁滨',
-    otherList: '李明',
-  },
-  {
-    id: '2',
-    enterTime: '2024-04-26 21:00:00',
-    leaveTime: '2024-04-27 06:00:00',
-    jinKeList: '吴宇昊、麦松涛',
-    otherList: '李明',
-  },
-  {
-    id: '3',
-    enterTime: '2024-04-26 21:00:00',
-    leaveTime: '2024-04-27 06:00:00',
-    jinKeList: '江郁滨',
-    otherList: '李明',
-  },
-];
+const getPersonCheckResult = (checkItem: any, targetList: any[]): any => {
+  const searchName = checkItem.name;
+  const infoList = targetList.filter((elem) => {
+    const strNames = `${elem.jinKeList}、${elem.otherList}`;
+    return strNames.includes(searchName);
+  });
+  let isValid = false;
+  let validElem = null;
+  for (const elem of infoList) {
+    isValid = isBetweenTime(checkItem.time, elem.enterTime, elem.leaveTime);
+    validElem = elem;
+    if (isValid) break;
+  }
+  const targetId = isValid ? validElem?.id : '-';
+  const resultItem = { ...checkItem, isValid, workId: targetId };
+  return resultItem;
+};
+
+export const getResultList = (checkList: any[], targetList: any[]): any[] => {
+  const processList = checkList.map((elem) => {
+    const personResult = getPersonCheckResult(elem, targetList);
+    return personResult;
+  });
+  return processList;
+};
