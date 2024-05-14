@@ -1,3 +1,16 @@
+import moment from 'moment';
+
+export const testFunc = () => {
+  const DATE_FORMAT = 'YYYY-MM-DD HH:mm';
+  // const timeOne = '2024-04-26 22:01';
+  // const timeOne = '2024-04-26 22:15:00';
+  const timeOne = '2024/04/26 8:15:10';
+  const timeTwo = '2024-04-26 8:15:00';
+
+  console.debug('timeOne:', moment(timeOne).format(DATE_FORMAT));
+  console.debug(new Date(timeOne).getTime(), new Date(timeTwo).getTime());
+};
+
 const isBetweenTime = (
   checkTime: string,
   enterTime: string,
@@ -33,4 +46,10 @@ export const getResultList = (checkList: any[], targetList: any[]): any[] => {
     return personResult;
   });
   return processList;
+};
+
+export const getExcelName = (prefix = ''): string => {
+  const DATE_FORMAT = 'YYYY-MM-DD HH:mm';
+  const formatCurrDate = moment(new Date()).format(DATE_FORMAT);
+  return `${prefix}${formatCurrDate}.xlsx`;
 };

@@ -1,14 +1,17 @@
 import type { ReactElement } from 'react';
 import { useRef, useState, useEffect } from 'react';
-import { read, utils } from 'xlsx';
-import { getResultList } from '../utils';
+import { read, utils, writeFileXLSX } from 'xlsx';
+import { getResultList, getExcelName } from '../utils';
 // import { mockMainList, mockTargetList } from '../mock';
 
 // const mockResultList = getResultList(mockMainList, mockTargetList);
+// console.debug('mockResultList:', mockMainList);
+
 const SheetJSReactHTML = (): ReactElement => {
   const [disableBtnSearch, setDisableBtnSearch] = useState(true);
-  const [faceDataJson, setFaceDataJson] = useState(null);
-  const [targetDataJson, setTargetDataJson] = useState(null);
+  const [faceDataJson, setFaceDataJson] = useState<null | any[]>(null);
+  const [targetDataJson, setTargetDataJson] = useState<null | any[]>(null);
+  const [resultDataJson, setResultDataJson] = useState<null | any[]>(null);
 
   const [faceDataHtml, setFaceDataHtml] = useState('');
   const [targetDataHtml, setTargetDataHtml] = useState('');
@@ -47,13 +50,22 @@ const SheetJSReactHTML = (): ReactElement => {
   };
 
   const handleSearch = () => {
-    console.debug('handleSearch:', faceDataJson, targetDataJson);
     if (faceDataJson && targetDataJson) {
       const resultList = getResultList(faceDataJson, targetDataJson);
-      console.debug('resultList:', resultList);
+      setResultDataJson(resultList);
       const resultSheet = utils.json_to_sheet(resultList);
       const htmlData = utils.sheet_to_html(resultSheet);
       renderHtml('resultFile', htmlData);
+    }
+  };
+
+  const handleExportFile = () => {
+    if (resultDataJson) {
+      const ws = utils.json_to_sheet(resultDataJson);
+      const wb = utils.book_new();
+      utils.book_append_sheet(wb, ws, 'Data');
+      const fileName = getExcelName();
+      writeFileXLSX(wb, fileName);
     }
   };
 
@@ -100,6 +112,13 @@ const SheetJSReactHTML = (): ReactElement => {
         <div>
           <button disabled={disableBtnSearch} onClick={handleSearch}>
             查询
+          </button>
+          <button
+            disabled={!resultDataJson}
+            onClick={handleExportFile}
+            style={{ marginLeft: '20px' }}
+          >
+            输出 Excel
           </button>
           <h3 style={{ textAlign: 'center' }}>查询结果 Table</h3>
           <div
