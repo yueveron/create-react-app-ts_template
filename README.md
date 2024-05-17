@@ -6,7 +6,7 @@
 - Typescript
 - Eslint
 - Sass
-
+- pages
 ---
 
 ## Available Scripts
