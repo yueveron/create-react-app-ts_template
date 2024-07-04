@@ -136,7 +136,8 @@ let test1: ITest2 = { title: '2', name: '322' };
 const test2: ITest1 = { title: '2', name: '32' };
 test1 = test2;
 
-/** 泛型约束 extends */
+/** 泛型约束 extends, 目的为缩小类型范围 */
+// 传入的参数必须含有 length 熟悉，否则会报错
 interface Lengthwise {
   length: number;
 }
@@ -144,7 +145,8 @@ const getLogList = <T extends Lengthwise>(list: T): T => {
   console.debug(list, ':', list.length); // 如泛型 T 没有length，所以编译的时候报错了
   return list;
 };
-// getLogList(['aa']);
+getLogList(['aa']);
+getLogList({ length: 1, name: '1bx' });
 
 // 泛型接口
 export interface DefaultData<T> {
@@ -163,6 +165,30 @@ const fixData = getDefaultData({
   },
 });
 console.debug('fixData:', fixData);
+
+/**
+ * 泛型约束 extends object 类型 : <T extends object>, 限制传入参数必须为一个 object 类型
+ * object 表示非原始类型，也就是除 number，string，boolean，symbol，null 或 undefined之外的类型。
+ * object 为 TSV2.2 引入的新类型，表示正式对象类型，可以为对象，数组，函数 : {}, {name:'abc'}, [1,2,3], ()=>{return 1}
+ */
+type CommonProps = {
+  header: string;
+};
+export interface SpecialProps<T extends object> extends CommonProps {
+  fileName: string;
+  data: T[];
+}
+const getSpecialData = <T extends object>(
+  defaultData: SpecialProps<T>
+): SpecialProps<T> => {
+  return defaultData;
+};
+const specialData = getSpecialData({
+  fileName: '11',
+  header: '',
+  data: [{ name: '' }],
+});
+console.debug('specialData:', specialData);
 
 const DemoTs = ({ hobbies }: demoTsProps) => {
   // TS - useState : use useState<type>('')
@@ -200,19 +226,19 @@ const DemoTs = ({ hobbies }: demoTsProps) => {
       ],
       'value'
     );
-    console.debug('sumTotal:', sumTotal); // output->3
+    // console.debug('sumTotal:', sumTotal); // output->3
 
     /** use interface 泛型  */
     const optionsTeam: IOptionTeams = {
       chelse: { label: 'chelse team', value: 'CS' },
       brighton: { label: 'brighton team', value: 'BT' },
     };
-    console.debug(
-      getTeamLabel<IOptionTeams>({
-        name: 'This team is',
-        optionsTeamObj: optionsTeam,
-      })
-    );
+    // console.debug(
+    //   getTeamLabel<IOptionTeams>({
+    //     name: 'This team is',
+    //     optionsTeamObj: optionsTeam,
+    //   })
+    // );
   }, [todos]);
 
   const handleAdd = (event: React.MouseEvent<HTMLButtonElement>): void => {
