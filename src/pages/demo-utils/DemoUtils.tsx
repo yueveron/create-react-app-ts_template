@@ -10,6 +10,7 @@ import {
   geyIsNotEmptyArray,
   exampleObjectReplaceSwitch,
   getModifiedValues,
+  getFlattenObject,
   // iterateNestObject,
 } from './utils/tools';
 interface IResObj {
@@ -115,6 +116,31 @@ const convertObj = allKeys.reduce(function (accumulator, key) {
 }, {});
 
 // console.debug(convertObj);
+
+/**
+ * Example : 递归遍历 object，将其扁平化
+ */
+const nestObject = {
+  dates: {
+    name: 'jack',
+    list: [1, 2, 3],
+  },
+  price: {
+    curreny: 'RM',
+    min: 1500,
+  },
+};
+/**
+ * {
+      "dates.name": "jack",
+      "dates.list[0]": 1,
+      "dates.list[1]": 2,
+      "dates.list[2]": 3,
+      "price.curreny": "RM",
+      "price.min": 1500
+    }
+ */
+console.debug('new--:', getFlattenObject({ a: { b: '1' } }));
 
 const DemoUtils = () => {
   useEffect(() => {

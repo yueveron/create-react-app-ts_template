@@ -1,5 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { get, set } from 'lodash';
+import {
+  get,
+  set,
+  isString,
+  isNumber,
+  isBoolean,
+  isNull,
+  isEmpty,
+  isArray,
+  isPlainObject,
+} from 'lodash';
 /**
  * Return the array of all value of nest-obj
  * @param {T} obj origin pure nest-obj
@@ -73,32 +83,66 @@ export const exampleObjectReplaceSwitch = (): void => {
 };
 
 /**
+ * 扁平化 Nested object 为一维 object
+ * @examle : {a:{b:'123'}} => {a.b:123}
+ */
+export const getFlattenObject = (
+  o: any,
+  prefix = '',
+  result: any = {},
+  keepNull = true
+): any => {
+  if (isString(o) || isNumber(o) || isBoolean(o) || (keepNull && isNull(o))) {
+    result[prefix] = o;
+    return result;
+  }
+
+  if (isArray(o) || isPlainObject(o)) {
+    for (let i in o) {
+      let pref = prefix;
+      if (isArray(o)) {
+        pref = pref + `[${i}]`;
+      } else {
+        if (isEmpty(prefix)) {
+          pref = i;
+        } else {
+          pref = prefix + '.' + i;
+        }
+      }
+      getFlattenObject(o[i], pref, result, keepNull);
+    }
+    return result;
+  }
+  return result;
+};
+
+/**
  * 扁平化 object key 为一维字符串
  * 注意：如果 object.key 为 array，会被忽略
  */
-export const flattenObject = (ob: any): any => {
-  const toReturn: any = {};
-  for (const i in ob) {
-    if (!Object.hasOwn(ob, i)) continue;
-    if (Array.isArray(ob[i])) continue;
-    if (typeof ob[i] === 'object' && ob[i] !== null) {
-      const flatObject = flattenObject(ob[i]);
-      for (const x in flatObject) {
-        if (!Object.hasOwn(flatObject, x)) continue;
-        toReturn[i + '.' + x] = flatObject[x];
-      }
-    } else {
-      toReturn[i] = ob[i];
-    }
-  }
-  return toReturn;
-};
+// export const flattenObject = (ob: any): any => {
+//   const toReturn: any = {};
+//   for (const i in ob) {
+//     if (!Object.hasOwn(ob, i)) continue;
+//     if (Array.isArray(ob[i])) continue;
+//     if (typeof ob[i] === 'object' && ob[i] !== null) {
+//       const flatObject = flattenObject(ob[i]);
+//       for (const x in flatObject) {
+//         if (!Object.hasOwn(flatObject, x)) continue;
+//         toReturn[i + '.' + x] = flatObject[x];
+//       }
+//     } else {
+//       toReturn[i] = ob[i];
+//     }
+//   }
+//   return toReturn;
+// };
 
 /**
  * Compare Two Object, and Set Modified item To Result-Object
  */
 export const getModifiedValues = (initialValue: any, submitValue: any): any => {
-  const flattened = flattenObject(initialValue);
+  const flattened = getFlattenObject(initialValue);
   // console.debug('flattened:', flattened);
   const result: any = {};
   Object.entries(flattened)?.map((entry) => {

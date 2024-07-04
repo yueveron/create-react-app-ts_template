@@ -135,7 +135,35 @@ interface ITest2 {
 let test1: ITest2 = { title: '2', name: '322' };
 const test2: ITest1 = { title: '2', name: '32' };
 test1 = test2;
-console.debug('test1:', test1);
+
+/** 泛型约束 extends */
+interface Lengthwise {
+  length: number;
+}
+const getLogList = <T extends Lengthwise>(list: T): T => {
+  console.debug(list, ':', list.length); // 如泛型 T 没有length，所以编译的时候报错了
+  return list;
+};
+// getLogList(['aa']);
+
+// 泛型接口
+export interface DefaultData<T> {
+  total: number;
+  formContent: T;
+}
+
+const getDefaultData = <T,>(defaultData: T): DefaultData<T> => {
+  return { total: 1, formContent: defaultData };
+};
+
+const fixData = getDefaultData({
+  data: {
+    name: 'jack',
+    list: [{ name: 'apple' }],
+  },
+});
+console.debug('fixData:', fixData);
+
 const DemoTs = ({ hobbies }: demoTsProps) => {
   // TS - useState : use useState<type>('')
   const [todos, setTodos] = useState<ITodo[]>([]);

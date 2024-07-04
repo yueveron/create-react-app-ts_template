@@ -10,13 +10,13 @@ import {
 } from './pages/demo-customhooks/DemoCustomHooks';
 // import DemoReactQuery from './pages/demo-react-query/DemoReactQuery';
 // import DemoReactTest from './pages/demo-react-test/DemoReactTest';
-// import DemoUtils from './pages/demo-utils/DemoUtils';
+import DemoUtils from './pages/demo-utils/DemoUtils';
 import DemoTs from './pages/demo-typescript/DemoTs';
 import DemoChildren from './pages/demo-children/DemoUse';
 import DemoComposition from './pages/demo-composition/DemoComposition';
 import DemoReactQuery from './pages/demo-react-query/reusable-react-query';
 // import DemoListItems from './pages/demo-react-basic/list-items';
-import DemoExcel from './pages/demo-excel/';
+// import DemoExcel from './pages/demo-excel/';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
       {/* <DemoReactQuery /> */}
       {/* <DemoReactTest title="React Test" /> */}
       {/* <DemoUtils /> */}
-      {/* <DemoTs hobbies="football" /> */}
+      <DemoTs hobbies="football" />
       {/* <DemoUseKeyBoard /> */}
       {/* <DemoUseReducerSimple /> */}
       {/* <DemoChildren /> */}
@@ -36,7 +36,7 @@ function App() {
       {/* <DemoFormik /> */}
       {/* <DemoReactQuery /> */}
       {/* <DemoListItems /> */}
-      <DemoExcel />
+      {/* <DemoExcel /> */}
     </div>
   );
 }
